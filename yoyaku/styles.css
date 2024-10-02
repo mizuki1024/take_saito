@@ -1,0 +1,78 @@
+body {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background-color: #f5f5dc;
+    color: #333;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 150px;
+}
+
+.logo img {
+    width: 100%;
+    height: auto;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.map-section {
+    position: relative;
+    width: 50%;
+}
+
+.map-image {
+    width: 100%;
+    border: 2px solid #f5f5dc;
+}
+
+.camp-site {
+    position: absolute;
+    background: #31bb3f;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.form-section {
+    width: 35%;
+    background: #ffdd99;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ffa500;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff8c00;
+}
