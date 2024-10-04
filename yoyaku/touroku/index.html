@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>村民登録</title>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <img src="../../images/ロゴ.png" alt="ロゴ" class="logo">
+    <div class="container">
+        <div class="form-container">
+            <h1>村民登録</h1>
+            <form id="registrationForm">
+                <label for="name">お名前</label>
+                <input type="text" id="name" name="name" required autocomplete="name">
+                
+                <label for="email">メールアドレス</label>
+                <input type="email" id="email" name="email" required autocomplete="email">
+                
+                <label for="password">パスワード <span class="password-note">（6文字以上で入力してください）</span></label>
+                <input type="password" id="password" name="password" required minlength="6" autocomplete="new-password">
+                
+                <div class="buttons">
+                    <button type="button" class="cancel">キャンセル</button>
+                    <button type="submit" class="register">登録する →</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAFsyt6MbqwYxHzOaSsyhGup5qYZYKOpms",
+            authDomain: "tizu-2df5d.firebaseapp.com",
+            projectId: "tizu-2df5d",
+            storageBucket: "tizu-2df5d.appspot.com",
+            messagingSenderId: "121970837294",
+            appId: "1:121970837294:web:003042ff34b80ac75edcbf",
+            measurementId: "G-N88BZKCY1K"
+        };
+
+        // Firebaseの初期化
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // フォームの送信イベントリスナー
+        document.getElementById('registrationForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            // Firebase Authenticationにユーザーを作成
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+
+            // Firestoreにユーザー情報を保存
+            await db.collection("users").doc(user.uid).set({
+                name: name,
+                email: email
+            });
+
+            alert('登録が完了しました！');
+        } catch (error) {
+            console.error("エラーが発生しました: ", error);
+            // 失敗の原因をユーザーに表示
+            alert(`登録に失敗しました: ${error.message}`);
+        }
+    });
+    </script>
+</body>
+</html>
